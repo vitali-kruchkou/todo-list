@@ -1,28 +1,43 @@
 import React from 'react';
+import { Col } from 'antd';
 
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 import CheckboxComponents from '../../atoms/Checkbox';
 import IconButtonComponents from '../../atoms/IconButton';
 import Text from '../../atoms/Typography/Paragraph';
-import { Col, Row } from 'antd';
-import { Container, Icon, Title } from './style';
 
-const ListItem: React.FC = () => {
+import { Container, CustomRow, Icon, Title } from './style';
+import { IListItemProps } from './type';
+
+const ListItem: React.FC<IListItemProps> = ({ text, onDelete, onEdit }) => {
   return (
     <>
       <Container>
-        <Row>
+        <CustomRow justify={'space-between'}>
           <Col span={1}>
             <CheckboxComponents />
           </Col>
-          <Title span={6}>
-            <Text>{123}</Text>
+          <Title span={10}>
+            <Text>{text}</Text>
           </Title>
-          <Icon span={6}>
-            <IconButtonComponents icon={<DeleteOutlined />} danger />
+          <Col span={5}>
+            <Text>{new Date().toLocaleDateString()}</Text>
+          </Col>
+          <Icon span={2}>
+            <IconButtonComponents
+              icon={<EditOutlined />}
+              onClick={() => onEdit()}
+            />
           </Icon>
-        </Row>
+          <Icon span={2}>
+            <IconButtonComponents
+              icon={<DeleteOutlined />}
+              danger
+              onClick={() => onDelete(text)}
+            />
+          </Icon>
+        </CustomRow>
       </Container>
     </>
   );

@@ -6,8 +6,9 @@ import TextFieldComponents from '../../atoms/TextField';
 import { Container } from './style';
 
 import { PlusOutlined } from '@ant-design/icons';
+import { ISearchBarProps } from './type';
 
-const SearchBar: React.FC = () => {
+const SearchBar: React.FC<ISearchBarProps> = () => {
   return (
     <>
       <Container>
