@@ -4,11 +4,8 @@ import { IParagraphProps } from './type';
 
 const { Paragraph } = Typography;
 
-const ParagraphComponent: React.FC<IParagraphProps> = ({
-  children,
-  ...props
-}) => {
+const Text: React.FC<IParagraphProps> = ({ children, ...props }) => {
   return <Paragraph {...props}>{children}</Paragraph>;
 };
 
-export default ParagraphComponent;
+export default Text;
