@@ -1,22 +1,26 @@
 import React from 'react';
 
-import Text from '../../atoms/Typography/Paragraph';
-import ListItem from '../../molecules/list-item';
+import Text from '@components/atoms/Typography/Paragraph';
+import ListItem from '@components/molecules/list-item';
+
 import { IListProps } from './type';
+import { ITodo } from '@store/constants';
 
 const EventList: React.FC<IListProps> = ({
   data,
   onDeleteTask,
   onEditTask,
+  onChangeStatus,
 }) => {
   return (
     <>
       {data?.length > 0 ? (
-        data?.map((item: any) => (
+        data?.map((item: ITodo) => (
           <ListItem
-            text={item?.value}
+            item={item}
             onDelete={onDeleteTask}
             onEdit={onEditTask}
+            onChange={onChangeStatus}
           />
         ))
       ) : (

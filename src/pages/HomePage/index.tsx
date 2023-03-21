@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
-import AddEventForm from '../../components/organisms/Form/add-event';
-import EventList from '../../components/organisms/List';
-import EditModals from '../../components/organisms/Modals/edit-modals';
-import HomeTemplate from '../../components/templates/HomeTemplate';
-import { useModal } from '../../hooks/useModal';
+import React from 'react';
+
+import AddEventForm from '@components/organisms/Form/add-event';
+import EventList from '@components/organisms/List';
+import HomeTemplate from '@components/templates/HomeTemplate';
+import { AppDispatch, RootState } from '@store/reducers';
+import {
+  addTodo,
+  changeTodoStatus,
+  removeTodo,
+  updateTodo,
+} from '@store/reducers/todo.slice';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { ITodo } from '@store/constants';
 
 const HomePage: React.FC = () => {
-  const [tasksList, setTasksList] = useState<any>([]);
+  const todoList = useSelector((state: RootState) => state.todos);
 
-  const handleSubmit = (values: any) => {
-    setTasksList([...tasksList, values]);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleSubmit = (values: Record<string, string>) => {
+    dispatch(addTodo(values?.value));
   };
 
-  const handleDeleteTask = (text: string) => {
-    setTasksList(
-      tasksList.filter((todo: { value: string }) => todo?.value !== text)
-    );
+  const handleDeleteTask = (id: string) => {
+    dispatch(removeTodo(id));
   };
 
-  const { showModal, isModalOpen, handleAccept, handleCancel } = useModal();
+  const handleEditTask = (item: ITodo) => {
+    dispatch(updateTodo(item));
+  };
+
+  const handleChangeStatus = (item: Omit<ITodo, 'description'>) => {
+    dispatch(changeTodoStatus(item));
+  };
 
   return (
     <>
@@ -26,16 +41,12 @@ const HomePage: React.FC = () => {
         form={<AddEventForm onFinish={handleSubmit} />}
         list={
           <EventList
-            data={tasksList}
+            data={todoList}
             onDeleteTask={handleDeleteTask}
-            onEditTask={showModal}
+            onEditTask={handleEditTask}
+            onChangeStatus={handleChangeStatus}
           />
         }
-      />
-      <EditModals
-        isModalOpen={isModalOpen}
-        handleAccept={handleAccept}
-        handleCancel={handleCancel}
       />
     </>
   );

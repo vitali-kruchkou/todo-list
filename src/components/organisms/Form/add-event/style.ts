@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 export const FormContainer = styled(Form)(
   () => ({
-    maxWidth: 700,
+    '& > div': {
+      width: 400,
+    },
   }),
   { name: 'FormContainer' }
 );

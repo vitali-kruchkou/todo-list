@@ -1,3 +1,3 @@
 export interface IAddEventProps {
-  onFinish: (arg: any) => void;
+  onFinish: (arg: Record<string, string>) => void;
 }

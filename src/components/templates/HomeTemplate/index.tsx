@@ -1,16 +1,20 @@
 import { Col, Row } from 'antd';
 import React from 'react';
+
+import { Container } from './style';
 import { IHomeTemplateProps } from './type';
 
-const HomeTemplate: React.FC<IHomeTemplateProps> = ({ form, list }) => {
+export const HomeTemplate: React.FC<IHomeTemplateProps> = ({ form, list }) => {
   return (
     <>
-      <Row>
-        <Col>{form}</Col>
-      </Row>
-      <Row>
-        <Col>{list}</Col>
-      </Row>
+      <Container>
+        <Row>
+          <Col>{form}</Col>
+        </Row>
+        <Row>
+          <Col>{list}</Col>
+        </Row>
+      </Container>
     </>
   );
 };
